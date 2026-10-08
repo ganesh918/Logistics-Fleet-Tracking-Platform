@@ -2,6 +2,7 @@ import { ArrowLeft, MapPin, Pencil } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ShipmentForm } from '../components/shipments/ShipmentForm'
+import { ShipmentStatusTracker } from '../components/shipments/ShipmentStatusTracker'
 import { FleetMap } from '../components/tracking/FleetMap'
 import { useFleet } from '../context/FleetContext'
 import { useToast } from '../context/ToastContext'
@@ -45,7 +46,8 @@ export function ShipmentDetailPage() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h2 className="font-display text-2xl font-bold">{shipment.referenceCode}</h2>
-          <p className="text-surface-800/60">{shipment.customerName}</p>
+          <p className="font-mono text-xs text-surface-400">ID {shipment.id}</p>
+          <p className="mt-1 text-surface-800/60">{shipment.customerName}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Badge className={shipmentStatusColor[shipment.status]}>
@@ -63,6 +65,13 @@ export function ShipmentDetailPage() {
           />
         </div>
       </div>
+
+      <Card>
+        <CardHeader title="Shipment status tracking" description="Progress through pickup, transit, and delivery" />
+        <CardBody className="pt-0">
+          <ShipmentStatusTracker status={shipment.status} />
+        </CardBody>
+      </Card>
 
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
@@ -129,7 +138,7 @@ export function ShipmentDetailPage() {
           </CardBody>
         </Card>
         <Card>
-          <CardHeader title="Delivery timeline" />
+          <CardHeader title="Delivery history" description="Complete audit trail for this shipment" />
           <CardBody>
             <ol className="relative space-y-4 border-l border-surface-200 pl-4 dark:border-surface-200/15">
               {shipment.timeline.map((ev) => (
