@@ -71,25 +71,9 @@ export function ShipmentsPage() {
   return (
     <div className="mx-auto max-w-[1600px] space-y-6">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-2xl">
+        <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-brand-600">Operations</p>
           <h1 className="font-display text-2xl font-bold text-surface-900 sm:text-3xl">Shipment management</h1>
-          <p className="mt-2 text-sm leading-relaxed text-surface-800/65">
-            Create and manage shipments with full customer details, pickup and delivery locations, driver and
-            vehicle assignment, live status tracking, and delivery history.
-          </p>
-          <ul className="mt-3 flex flex-wrap gap-2 text-xs text-surface-800/55">
-            {['Shipment ID & customer', 'Pickup / delivery', 'Driver & vehicle', 'Status tracking', 'History'].map(
-              (tag) => (
-                <li
-                  key={tag}
-                  className="rounded-full border border-surface-200/80 bg-panel px-2.5 py-1 dark:border-surface-200/15"
-                >
-                  {tag}
-                </li>
-              ),
-            )}
-          </ul>
         </div>
         <Button
           className="shrink-0 self-start lg:self-auto"
