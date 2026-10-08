@@ -1,0 +1,474 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* FleetFlow — Deep teal + slate + warm gold accent */
+@theme {
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #ecfdf8;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+  --color-brand-900: #134e4a;
+  --color-brand-950: #042f2e;
+
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+
+  --color-surface-50: #f6f8fa;
+  --color-surface-100: #eceff3;
+  --color-surface-200: #d8dee6;
+  --color-surface-800: #334155;
+  --color-surface-900: #0f172a;
+  --color-surface-950: #020617;
+
+  --color-panel: #ffffff;
+  --color-panel-muted: #f0fdfa;
+}
+
+.dark {
+  --color-surface-50: #020617;
+  --color-surface-100: #0c1222;
+  --color-surface-200: #1e293b;
+  --color-surface-800: #cbd5e1;
+  --color-surface-900: #f1f5f9;
+  --color-surface-950: #ffffff;
+  --color-panel: #0f172a;
+  --color-panel-muted: #134e4a20;
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  body {
+    @apply bg-surface-50 text-surface-900 font-sans dark:bg-surface-50 dark:text-surface-900;
+    overscroll-behavior-y: none;
+  }
+}
+
+main:has([data-page='tracking']) {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+.leaflet-container {
+  font-family: inherit;
+  background: var(--color-surface-100);
+}
+
+.leaflet-container .leaflet-control-zoom {
+  border: none;
+  box-shadow: 0 2px 8px rgb(15 23 42 / 12%);
+}
+
+.dark .leaflet-tile-pane {
+  filter: brightness(0.92) contrast(1.08) saturate(0.85);
+}
+
+@keyframes fleet-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.65;
+  }
+}
+
+.fleet-marker-pulse {
+  animation: fleet-pulse 2s ease-in-out infinite;
+}
+
+@keyframes fleet-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fleet-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fleet-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fleet-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fleet-badge-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgb(244 63 94 / 0.45);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px rgb(244 63 94 / 0);
+  }
+}
+
+@keyframes fleet-float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes fleet-spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fleet-progress-scale {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fleet-dot-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.65;
+  }
+}
+
+@keyframes fleet-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@layer components {
+  .fleet-page-enter {
+    animation: fleet-fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .fleet-stagger > * {
+    animation: fleet-fade-in-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .fleet-stagger > *:nth-child(1) {
+    animation-delay: 0ms;
+  }
+  .fleet-stagger > *:nth-child(2) {
+    animation-delay: 55ms;
+  }
+  .fleet-stagger > *:nth-child(3) {
+    animation-delay: 110ms;
+  }
+  .fleet-stagger > *:nth-child(4) {
+    animation-delay: 165ms;
+  }
+  .fleet-stagger > *:nth-child(5) {
+    animation-delay: 220ms;
+  }
+  .fleet-stagger > *:nth-child(6) {
+    animation-delay: 275ms;
+  }
+  .fleet-stagger > *:nth-child(7) {
+    animation-delay: 330ms;
+  }
+  .fleet-stagger > *:nth-child(8) {
+    animation-delay: 385ms;
+  }
+  .fleet-stagger > *:nth-child(n + 9) {
+    animation-delay: 440ms;
+  }
+
+  .fleet-card {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  @media (hover: hover) {
+    .fleet-card:hover {
+      @apply -translate-y-0.5 border-brand-400/35 shadow-lg shadow-brand-600/10;
+    }
+  }
+
+  .fleet-card-interactive {
+    @apply relative overflow-hidden transition-all duration-300 ease-out;
+  }
+
+  @media (hover: hover) {
+    .fleet-card-interactive:hover {
+      @apply -translate-y-1 border-brand-400/40 shadow-xl shadow-brand-600/12;
+    }
+
+    .fleet-card-interactive::before {
+      content: '';
+      @apply pointer-events-none absolute inset-y-0 left-0 w-1 scale-y-0 bg-brand-500 transition-transform duration-300 origin-center;
+    }
+
+    .fleet-card-interactive:hover::before {
+      @apply scale-y-100;
+    }
+  }
+
+  .fleet-icon-btn {
+    @apply rounded-lg transition-all duration-200 ease-out active:scale-95;
+  }
+
+  @media (hover: hover) {
+    .fleet-icon-btn:hover {
+      @apply -translate-y-0.5 bg-surface-100 shadow-sm dark:bg-surface-100/10;
+    }
+  }
+
+  .fleet-table tbody tr {
+    @apply transition-[background-color,transform,box-shadow] duration-200;
+  }
+
+  @media (hover: hover) {
+    .fleet-table tbody tr:hover {
+      @apply bg-brand-50/60 shadow-[inset_3px_0_0_0] shadow-brand-500 dark:bg-brand-950/25;
+    }
+  }
+
+  .fleet-nav-badge-pulse {
+    animation: fleet-badge-pulse 2.5s ease-in-out infinite;
+  }
+
+  .fleet-shimmer-line {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(20 184 166 / 0.12) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: fleet-shimmer 2.8s ease-in-out infinite;
+  }
+
+  .fleet-dashboard-stagger > * {
+    animation: fleet-fade-in-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .fleet-dashboard-stagger > *:nth-child(1) {
+    animation-delay: 80ms;
+  }
+  .fleet-dashboard-stagger > *:nth-child(2) {
+    animation-delay: 160ms;
+  }
+  .fleet-dashboard-stagger > *:nth-child(3) {
+    animation-delay: 240ms;
+  }
+  .fleet-dashboard-stagger > *:nth-child(4) {
+    animation-delay: 320ms;
+  }
+  .fleet-dashboard-stagger > *:nth-child(5) {
+    animation-delay: 400ms;
+  }
+  .fleet-dashboard-stagger > *:nth-child(6) {
+    animation-delay: 480ms;
+  }
+
+  .fleet-link-tile {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  @media (hover: hover) {
+    .fleet-link-tile:hover {
+      @apply -translate-y-1 border-brand-300/50 bg-brand-50/60 shadow-lg shadow-brand-600/10 dark:border-brand-500/35 dark:bg-brand-500/10;
+    }
+
+    .fleet-link-tile:hover .fleet-link-tile-icon {
+      @apply scale-110 -rotate-6 shadow-md;
+    }
+  }
+
+  .fleet-link-tile-icon {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .fleet-list-row {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  @media (hover: hover) {
+    .fleet-list-row:hover {
+      @apply translate-x-1 bg-brand-50/50 dark:bg-brand-950/20;
+    }
+  }
+
+  .fleet-alert-row {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  @media (hover: hover) {
+    .fleet-alert-row:hover {
+      @apply -translate-y-0.5 border-brand-300/40 shadow-md dark:border-brand-500/30;
+    }
+  }
+
+  .fleet-activity-dot {
+    animation: fleet-dot-pulse 2.2s ease-in-out infinite;
+  }
+
+  .fleet-chart-enter {
+    animation: fleet-scale-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 120ms;
+  }
+
+  .fleet-filter-enter {
+    animation: fleet-fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .fleet-field {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .fleet-field:focus {
+    @apply shadow-md shadow-brand-500/10;
+  }
+
+  .fleet-modal-backdrop {
+    animation: fleet-fade-in 0.28s ease-out both;
+  }
+
+  .fleet-modal-panel {
+    animation: fleet-scale-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .fleet-empty-float {
+    animation: fleet-float-soft 3.5s ease-in-out infinite;
+  }
+
+  .fleet-empty-enter {
+    animation: fleet-scale-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .fleet-loader-ring {
+    @apply relative size-12;
+  }
+
+  .fleet-loader-ring::before,
+  .fleet-loader-ring::after {
+    content: '';
+    @apply absolute inset-0 rounded-full border-2 border-transparent;
+  }
+
+  .fleet-loader-ring::before {
+    border-top-color: rgb(20 184 166);
+    animation: fleet-spin-slow 0.85s linear infinite;
+  }
+
+  .fleet-loader-ring::after {
+    inset: 4px;
+    border-bottom-color: rgb(13 148 136 / 0.45);
+    animation: fleet-spin-slow 1.2s linear infinite reverse;
+  }
+
+  .fleet-progress-fill {
+    transform-origin: left center;
+    animation: fleet-progress-scale 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .fleet-map-frame {
+    @apply transition-transform duration-500 ease-out;
+  }
+
+  @media (hover: hover) {
+    .fleet-map-frame:hover {
+      @apply scale-[1.01] shadow-xl shadow-brand-600/10;
+    }
+  }
+
+  .fleet-pagination-enter {
+    animation: fleet-slide-in-right 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .fleet-health-metric {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  @media (hover: hover) {
+    .fleet-health-metric:hover {
+      @apply -translate-y-0.5 bg-brand-50/50 dark:bg-brand-950/25;
+    }
+  }
+
+  .fleet-score-pop {
+    animation: fleet-scale-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fleet-page-enter,
+  .fleet-stagger > *,
+  .fleet-dashboard-stagger > *,
+  .fleet-marker-pulse,
+  .fleet-nav-badge-pulse,
+  .fleet-shimmer-line,
+  .fleet-empty-float,
+  .fleet-activity-dot,
+  .fleet-chart-enter,
+  .fleet-filter-enter,
+  .fleet-modal-backdrop,
+  .fleet-modal-panel,
+  .fleet-empty-enter,
+  .fleet-loader-ring::before,
+  .fleet-loader-ring::after,
+  .fleet-progress-fill,
+  .fleet-pagination-enter,
+  .fleet-score-pop {
+    animation: none !important;
+  }
+
+  .fleet-card:hover,
+  .fleet-card-interactive:hover,
+  .fleet-link-tile:hover,
+  .fleet-map-frame:hover {
+    transform: none !important;
+  }
+}
