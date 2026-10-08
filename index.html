@@ -21,8 +21,7 @@
   <body>
     <script>
       try {
-        var t = localStorage.getItem('fleetflow-theme');
-        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('fleetflow-theme') === 'dark') {
           document.documentElement.classList.add('dark');
         }
       } catch (e) {}
